@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário Seguro</title>
+<script>
+  let tentativas = 0;
+  const maxTentativas = 1; // número máximo de saídas da aba/janela
+
+  function limparIframe() {
+    const iframe = document.getElementById("formulario");
+    iframe.src = iframe.src;
+    alert("OI VOCÊ NÃO ACREDITOU E SAIU DA ABA OU DO APLICATIVO NÉ? INFELIZMENTE O FORMULÁRIO FOI LIMPO.😩😩");
+  }
+
+  function verificarSaida() {
+    if (tentativas >= maxTentativas) {
+      const iframe = document.getElementById("formulario");
+      iframe.style.display = "none";
+      alert("Você excedeu o número de saídas da aba. O formulário está bloqueado.");
+    } else {
+      tentativas++;
+      limparIframe();
+    }
+  }
+
+  // Detecta quando a aba perde foco (desktop e celular)
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      verificarSaida();
+    }
+  });
+
+  // Detecta perda de foco em desktop
+  window.addEventListener("blur", function() {
+    verificarSaida();
+  });
+
+  // Detecta se o usuário alterna para outro aplicativo em celulares (iOS/Android)
+  window.addEventListener("pagehide", function() {
+    verificarSaida();
+  });
+
+  // Detecta se o usuário volta da tela inicial ou bloqueia o celular
+  window.addEventListener("freeze", function() {
+    verificarSaida();
+  });
+</script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+  }
+  iframe {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 95%;
+    max-width: 700px;
+    height: 800px;
+  }
+  .aviso {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Formulário de Avaliação</h2>
+<p class="aviso">⚠️ Não saia da aba ou do aplicativo. Se isso acontecer, o formulário será limpo ou bloqueado.</p>
+
+<!-- Substitua pelo link do seu Google Form -->
+<iframe id="formulario" src="https://forms.gle/TcXPfknwymYzDyhG8" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+<footer>
+        <p>&copy; 2025 Aplicação para LEMBRAR QUE O CRIME NÃO COMPENSA!! - Todos os direitos reservados AZSOS ENGENHARIA</p>
+    </footer>
+
+</body>
+</html>
